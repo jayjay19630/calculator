@@ -13,3 +13,12 @@ function apply_operator(first_operand, second_operand, operator) {
         return first_operand / second_operand;
     }
 }
+const buttons = document.querySelectorAll("button");
+const display = document.querySelector(".display");
+
+function displayNumber(e) {
+    display.textContent = e.target.textContent;
+}
+buttons.forEach(button => {
+    button.addEventListener('click', displayNumber);
+})
