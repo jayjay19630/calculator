@@ -11,7 +11,7 @@ function apply_operator(first_operand, second_operand, operator) {
     } else if (operator === "x") {
         return first_operand * second_operand;
     } else {
-        return first_operand / second_operand;
+        return second_operand !== 0 ? (first_operand / second_operand): "ERROR";
     }
 }
 const buttons = document.querySelectorAll("button");
