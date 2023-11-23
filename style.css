@@ -7,7 +7,7 @@ body {
     }
 
     .calculator {
-        height: 600px;
+        height: 540px;
         width: 400px;
         background-color: #455d7a;
         border-radius: 20px;
@@ -47,6 +47,7 @@ body {
                 width: 350px;
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 30px;
                 }
 
                 .buttonrow1 button {
@@ -55,12 +56,39 @@ body {
                     background-color: rgb(24, 24, 24);
                     border: none;
                     border-radius: 5px;
-                    color: whitesmoke;
+                    color: #e3e3e3;
                     font-weight: bolder;
                     font-size: 25px;
                 }
 
                 .buttonrow1 .delete {
                     background-color: #f95959;
+                }
+            
+            .buttonrow2, .buttonrow3, .buttonrow4, .buttonrow5, .buttonrow6 {
+                width: 350px;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                }
+
+                .buttonrow2 button, .buttonrow3 button, .buttonrow4 button, .buttonrow5 button, .buttonrow6 .dot, .buttonrow6 .zero {
+                    height: 40px;
+                    width: 70px;
+                    background-color: rgb(48, 47, 47);
+                    border: none;
+                    border-radius: 5px;
+                    color: #e3e3e3;
+                    font-weight: bolder;
+                    font-size: 18px;
+                }
+
+                .buttonrow6 .equal {
+                    width: 164px;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: rgb(231, 141, 71);
+                    font-weight: bolder;
+                    font-size: 18px;
                 }
             
