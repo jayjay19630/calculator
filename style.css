@@ -72,7 +72,7 @@ body {
                 margin-bottom: 15px;
                 }
 
-                .buttonrow2 button, .buttonrow3 button, .buttonrow4 button, .buttonrow5 button, .buttonrow6 .dot, .buttonrow6 .zero {
+                .buttonrow2 button, .buttonrow3 button, .buttonrow4 button, .buttonrow5 button, .buttonrow6 .dot, .buttonrow6 .num {
                     height: 40px;
                     width: 70px;
                     background-color: rgb(48, 47, 47);
