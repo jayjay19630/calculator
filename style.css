@@ -34,3 +34,33 @@ body {
                 border-radius: 4px;
                 background-color: antiquewhite;
             }
+        
+        .body {
+            width: 350px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;            
+            align-items: center;
+            }
+            
+            .buttonrow1 {
+                width: 350px;
+                display: flex;
+                justify-content: space-between;
+                }
+
+                .buttonrow1 button {
+                    height: 50px;
+                    width: 70px;
+                    background-color: rgb(24, 24, 24);
+                    border: none;
+                    border-radius: 5px;
+                    color: whitesmoke;
+                    font-weight: bolder;
+                    font-size: 25px;
+                }
+
+                .buttonrow1 .delete {
+                    background-color: #f95959;
+                }
+            
