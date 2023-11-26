@@ -4,7 +4,7 @@ let operator = "";
 let state = true;
 let decimalState = false;
 let decimalPower = 1;
-let memory = 0;
+let mem = 0;
 let newResultState = false;
 
 const buttons = document.querySelectorAll("button");
@@ -14,8 +14,8 @@ const opButtons = document.querySelectorAll(".operator");
 const equalButton = document.querySelector(".equal");
 const dotButton = document.querySelector(".dot");
 const clearButton = document.querySelector(".delete");
-//const addMem = document.querySelector(".M+");
-//const subMem = document.querySelector(".M-");
+const addMem = document.querySelector(".Mplus");
+const subMem = document.querySelector(".Mminus");
 
 function apply_operator(first_operand, second_operand, operator) {
     if (operator === "+") {
@@ -71,6 +71,7 @@ function evalOp(e) {
         state = false;
         resetDecimal();
         displayNums();
+        newResultState = false;
     } else {
 
     }
@@ -90,7 +91,6 @@ function resetDecimal() {
 function equal(e) {
     if (operator === "") {
         displayNums();
-        first_operand = 0;
         resetDecimal();
         newResultState = true;
     } else if (second_operand === undefined) {
@@ -115,6 +115,15 @@ function clear(e) {
     displayNums();
 }
 
+function memAdd(e) {
+    if (newResultState) {
+        mem += first_operand;
+        first_operand = mem;
+        console.log(mem);
+        displayNums();
+    }
+}
+
 numButtons.forEach(button => {
     button.addEventListener('click', evalNum);
 })
@@ -126,3 +135,4 @@ opButtons.forEach(button => {
 equalButton.addEventListener('click', equal);
 dotButton.addEventListener('click', decimal);
 clearButton.addEventListener('click', clear);
+addMem.addEventListener('click', memAdd);
