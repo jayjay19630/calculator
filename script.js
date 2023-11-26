@@ -11,6 +11,7 @@ const numButtons = document.querySelectorAll(".num");
 const opButtons = document.querySelectorAll(".operator");
 const equalButton = document.querySelector(".equal");
 const dotButton = document.querySelector(".dot");
+const clearButton = document.querySelector(".delete")
 
 function apply_operator(first_operand, second_operand, operator) {
     if (operator === "+") {
@@ -72,19 +73,26 @@ function decimal(e) {
     }
 }
 
+function resetDecimal() {
+    decimalState = false;
+    decimalPower = 1;
+}
+
 function equal(e) {
     if (operator === "") {
         displayNums();
         first_operand = 0;
+        resetDecimal();
     } else if (second_operand === undefined) {
     } else {
-        const result = apply_operator(first_operand, second_operand, operator);
-        first_operand = result;
+        let result = apply_operator(first_operand, second_operand, operator).toString();
+        first_operand = result.length >= 14 ? parseFloat(result.substr(0, 14)) : parseFloat(result); 
         operator = "";
         second_operand = undefined;
         displayNums();
         first_operand = 0;
         state = true;
+        resetDecimal();
     }
 }
 
@@ -93,6 +101,8 @@ function clear(e) {
     second_operand = undefined;
     operator = "";
     state = true;
+    resetDecimal();
+    displayNums();
 }
 
 numButtons.forEach(button => {
@@ -105,3 +115,4 @@ opButtons.forEach(button => {
 
 equalButton.addEventListener('click', equal);
 dotButton.addEventListener('click', decimal);
+clearButton.addEventListener('click', clear);
