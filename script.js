@@ -16,6 +16,7 @@ const dotButton = document.querySelector(".dot");
 const clearButton = document.querySelector(".delete");
 const addMem = document.querySelector(".Mplus");
 const subMem = document.querySelector(".Mminus");
+const clearMem = document.querySelector(".MRC");
 
 function apply_operator(first_operand, second_operand, operator) {
     if (operator === "+") {
@@ -119,9 +120,21 @@ function memAdd(e) {
     if (newResultState) {
         mem += first_operand;
         first_operand = mem;
-        console.log(mem);
         displayNums();
     }
+}
+function memSub(e) {
+    if (newResultState) {
+        mem -= first_operand;
+        first_operand = mem;
+        displayNums();
+    }
+}
+
+function memClear(e) {
+    mem = 0;
+    first_operand = mem;
+    displayNums();
 }
 
 numButtons.forEach(button => {
@@ -136,3 +149,6 @@ equalButton.addEventListener('click', equal);
 dotButton.addEventListener('click', decimal);
 clearButton.addEventListener('click', clear);
 addMem.addEventListener('click', memAdd);
+subMem.addEventListener('click', memSub);
+clearMem.addEventListener('click', memClear);
+
