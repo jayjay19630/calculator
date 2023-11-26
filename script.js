@@ -2,6 +2,15 @@ let first_operand = 0;
 let second_operand = undefined;
 let operator = "";
 let state = true;
+let decimalState = false;
+let decimalPower = 1;
+
+const buttons = document.querySelectorAll("button");
+const display = document.querySelector(".display");
+const numButtons = document.querySelectorAll(".num");
+const opButtons = document.querySelectorAll(".operator");
+const equalButton = document.querySelector(".equal");
+const dotButton = document.querySelector(".dot");
 
 function apply_operator(first_operand, second_operand, operator) {
     if (operator === "+") {
@@ -14,11 +23,6 @@ function apply_operator(first_operand, second_operand, operator) {
         return second_operand !== 0 ? (first_operand / second_operand): "ERROR";
     }
 }
-const buttons = document.querySelectorAll("button");
-const display = document.querySelector(".display");
-const numButtons = document.querySelectorAll(".num");
-const opButtons = document.querySelectorAll(".operator");
-const equalButton = document.querySelector(".equal");
 
 function displayNums() {
     if (operator === "") {
@@ -33,9 +37,19 @@ function displayNums() {
 function evalNum(e) {
     const num = parseInt(e.target.textContent, 10);
     if (state === true) {
-        first_operand = first_operand * 10 + num;
+        if (!decimalState) {
+            first_operand = first_operand * 10 + num
+        } else {
+            first_operand = first_operand + num / Math.pow(10, decimalPower);
+            decimalPower++;
+        }
     } else {
-        second_operand = second_operand !== undefined ? second_operand * 10 + num : num;
+        if (!decimalState) {
+            second_operand = second_operand !== undefined ? second_operand * 10 + num : num;
+        } else {
+            second_operand = second_operand !== undefined ? second_operand + num / Math.pow(10, decimalPower): num;
+            decimalPower++;
+        }
     }
     displayNums();
 }
@@ -44,9 +58,17 @@ function evalOp(e) {
     if (state && operator === "") {
         operator = e.target.textContent;
         state = false;
+        decimalState = false;
+        decimalPower = 1;
         displayNums();
     } else {
 
+    }
+}
+
+function decimal(e) {
+    if (!decimalState) {
+        decimalState = true; 
     }
 }
 
@@ -66,6 +88,13 @@ function equal(e) {
     }
 }
 
+function clear(e) {
+    first_operand = 0;
+    second_operand = undefined;
+    operator = "";
+    state = true;
+}
+
 numButtons.forEach(button => {
     button.addEventListener('click', evalNum);
 })
@@ -75,3 +104,4 @@ opButtons.forEach(button => {
 })
 
 equalButton.addEventListener('click', equal);
+dotButton.addEventListener('click', decimal);
