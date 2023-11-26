@@ -4,6 +4,8 @@ let operator = "";
 let state = true;
 let decimalState = false;
 let decimalPower = 1;
+let memory = 0;
+let newResultState = false;
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector(".display");
@@ -11,7 +13,9 @@ const numButtons = document.querySelectorAll(".num");
 const opButtons = document.querySelectorAll(".operator");
 const equalButton = document.querySelector(".equal");
 const dotButton = document.querySelector(".dot");
-const clearButton = document.querySelector(".delete")
+const clearButton = document.querySelector(".delete");
+//const addMem = document.querySelector(".M+");
+//const subMem = document.querySelector(".M-");
 
 function apply_operator(first_operand, second_operand, operator) {
     if (operator === "+") {
@@ -40,6 +44,10 @@ function displayNums() {
 function evalNum(e) {
     const num = parseInt(e.target.textContent, 10);
     if (state === true) {
+        if (newResultState) {
+            first_operand = 0;
+            newResultState = false;
+        }
         if (!decimalState) {
             first_operand = first_operand * 10 + num
         } else {
@@ -61,8 +69,7 @@ function evalOp(e) {
     if (state && operator === "") {
         operator = e.target.textContent;
         state = false;
-        decimalState = false;
-        decimalPower = 1;
+        resetDecimal();
         displayNums();
     } else {
 
@@ -85,6 +92,7 @@ function equal(e) {
         displayNums();
         first_operand = 0;
         resetDecimal();
+        newResultState = true;
     } else if (second_operand === undefined) {
     } else {
         let result = apply_operator(first_operand, second_operand, operator).toString();
@@ -92,9 +100,9 @@ function equal(e) {
         operator = "";
         second_operand = undefined;
         displayNums();
-        first_operand = 0;
         state = true;
         resetDecimal();
+        newResultState = true;
     }
 }
 
