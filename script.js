@@ -139,12 +139,10 @@ function memClear(e) {
 
 numButtons.forEach(button => {
     button.addEventListener('click', evalNum);
-})
-
+});
 opButtons.forEach(button => {
     button.addEventListener('click', evalOp);
-})
-
+});
 equalButton.addEventListener('click', equal);
 dotButton.addEventListener('click', decimal);
 clearButton.addEventListener('click', clear);
