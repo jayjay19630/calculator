@@ -39,12 +39,12 @@ function apply_operator(first_operand, second_operand, operator) {
         return first_operand * second_operand;
     } else if (operator === "%") {
         return first_operand % second_operand;
-    } else if (operator === "/") {
-        return second_operand !== 0 ? (first_operand / second_operand): "ERROR";
     } else if (sqrtState) {
         return Math.sqrt(first_operand);
-    } else { //factorialState
+    } else if (factorialState) { //factorialState
         return factorial(first_operand);
+    } else {
+        return second_operand !== 0 ? (first_operand / second_operand): "ERROR";
     }
 }
 
