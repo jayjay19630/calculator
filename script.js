@@ -23,7 +23,7 @@ const factorialButton = document.querySelector(".factorial");
 const sqrtButton = document.querySelector(".sqrt");
 
 function factorial(n) {
-    if (n % 1 !== 0) {
+    if (n - Math.floor(n) !== 0) {
         return "ERROR";
     } else {
         return (n === 0 || n === 1) ? n : n * factorial(n - 1);
@@ -87,7 +87,7 @@ function evalNum(e) {
 }
 
 function evalOp(e) {
-    if (sqrtState) {
+    if (sqrtState || factorialState || first_operand === "ERROR") {
         
     } else if (state && operator === "") {
         operator = e.target.textContent;
@@ -119,7 +119,7 @@ function equal(e) {
     } else if (second_operand === undefined && !sqrtState && !factorialState) {
     } else {
         let result = apply_operator(first_operand, second_operand, operator).toString();
-        first_operand = result.length >= 14 ? parseFloat(result.substr(0, 14)) : parseFloat(result); 
+        first_operand = result === "ERROR" ? result: result.length >= 14 ? parseFloat(result.substr(0, 14)) : parseFloat(result); 
         operator = "";
         second_operand = undefined;
         sqrtState = false;
@@ -127,7 +127,7 @@ function equal(e) {
         displayNums();
         state = true;
         resetDecimal();
-        newResultState = true;
+        newResultState = true;        
     }
 }
 
