@@ -7,6 +7,7 @@ let decimalPower = 1;
 let mem = 0;
 let newResultState = false;
 let sqrtState = false;
+let factorialState = false;
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector(".display");
@@ -25,7 +26,7 @@ function factorial(n) {
     if (n % 1 !== 0) {
         return "ERROR";
     } else {
-        
+        return (n === 0 || n === 1) ? n : n * factorial(n - 1);
     }
 }
   
@@ -43,13 +44,15 @@ function apply_operator(first_operand, second_operand, operator) {
     } else if (sqrtState) {
         return Math.sqrt(first_operand);
     } else { //factorialState
-        return 
+        return factorial(first_operand);
     }
 }
 
 function displayNums() {
     if (sqrtState) {
         display.innerHTML = '&#8730;' + "(" + first_operand + ")";
+    } else if (factorialState) {
+        display.textContent = "(" + first_operand + ")!";
     } else if (operator === "") {
         display.textContent = first_operand;
     } else if (second_operand === undefined) {
@@ -109,17 +112,18 @@ function resetDecimal() {
 }
 
 function equal(e) {
-    if (operator === "" && !sqrtState) {
+    if (operator === "" && !sqrtState && !factorialState) {
         displayNums();
         resetDecimal();
         newResultState = true;
-    } else if (second_operand === undefined && !sqrtState) {
+    } else if (second_operand === undefined && !sqrtState && !factorialState) {
     } else {
         let result = apply_operator(first_operand, second_operand, operator).toString();
         first_operand = result.length >= 14 ? parseFloat(result.substr(0, 14)) : parseFloat(result); 
         operator = "";
         second_operand = undefined;
         sqrtState = false;
+        factorialState = false;
         displayNums();
         state = true;
         resetDecimal();
@@ -162,6 +166,11 @@ function sqrt() {
     displayNums(); 
 }
 
+function fact() {
+    factorialState = true;
+    displayNums();
+}
+
 numButtons.forEach(button => {
     button.addEventListener('click', evalNum);
 });
@@ -175,4 +184,5 @@ addMem.addEventListener('click', memAdd);
 subMem.addEventListener('click', memSub);
 clearMem.addEventListener('click', memClear);
 sqrtButton.addEventListener('click', sqrt);
+factorialButton.addEventListener('click', fact);
 
