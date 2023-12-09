@@ -6,6 +6,7 @@ let decimalState = false;
 let decimalPower = 1;
 let mem = 0;
 let newResultState = false;
+let sqrtState = false;
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector(".display");
@@ -17,7 +18,17 @@ const clearButton = document.querySelector(".delete");
 const addMem = document.querySelector(".Mplus");
 const subMem = document.querySelector(".Mminus");
 const clearMem = document.querySelector(".MRC");
+const factorialButton = document.querySelector(".factorial");
+const sqrtButton = document.querySelector(".sqrt");
 
+function factorial(n) {
+    if (n % 1 !== 0) {
+        return "ERROR";
+    } else {
+        
+    }
+}
+  
 function apply_operator(first_operand, second_operand, operator) {
     if (operator === "+") {
         return first_operand + second_operand;
@@ -27,13 +38,19 @@ function apply_operator(first_operand, second_operand, operator) {
         return first_operand * second_operand;
     } else if (operator === "%") {
         return first_operand % second_operand;
-    } else {
+    } else if (operator === "/") {
         return second_operand !== 0 ? (first_operand / second_operand): "ERROR";
+    } else if (sqrtState) {
+        return Math.sqrt(first_operand);
+    } else { //factorialState
+        return 
     }
 }
 
 function displayNums() {
-    if (operator === "") {
+    if (sqrtState) {
+        display.innerHTML = '&#8730;' + "(" + first_operand + ")";
+    } else if (operator === "") {
         display.textContent = first_operand;
     } else if (second_operand === undefined) {
         display.textContent = first_operand + operator;
@@ -67,7 +84,9 @@ function evalNum(e) {
 }
 
 function evalOp(e) {
-    if (state && operator === "") {
+    if (sqrtState) {
+        
+    } else if (state && operator === "") {
         operator = e.target.textContent;
         state = false;
         resetDecimal();
@@ -90,16 +109,17 @@ function resetDecimal() {
 }
 
 function equal(e) {
-    if (operator === "") {
+    if (operator === "" && !sqrtState) {
         displayNums();
         resetDecimal();
         newResultState = true;
-    } else if (second_operand === undefined) {
+    } else if (second_operand === undefined && !sqrtState) {
     } else {
         let result = apply_operator(first_operand, second_operand, operator).toString();
         first_operand = result.length >= 14 ? parseFloat(result.substr(0, 14)) : parseFloat(result); 
         operator = "";
         second_operand = undefined;
+        sqrtState = false;
         displayNums();
         state = true;
         resetDecimal();
@@ -112,6 +132,7 @@ function clear(e) {
     second_operand = undefined;
     operator = "";
     state = true;
+    sqrtState = false;
     resetDecimal();
     displayNums();
 }
@@ -134,7 +155,11 @@ function memSub(e) {
 function memClear(e) {
     mem = 0;
     first_operand = mem;
-    displayNums();
+}
+
+function sqrt() {
+    sqrtState = true; 
+    displayNums(); 
 }
 
 numButtons.forEach(button => {
@@ -149,4 +174,5 @@ clearButton.addEventListener('click', clear);
 addMem.addEventListener('click', memAdd);
 subMem.addEventListener('click', memSub);
 clearMem.addEventListener('click', memClear);
+sqrtButton.addEventListener('click', sqrt);
 
